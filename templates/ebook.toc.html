@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>目录</title>
+    <link rel="stylesheet" href="../css/pub.css" type="text/css" />
+</head>
+
+<body>
+    <h3>{{ .BookName }}</h3>
+    <ul>
+{{ range $k, $v := .Chapters }}
+        <li><a href="{{ $v.ChapterPath }}">{{ $v.Name }}</a></li>
+{{ end }}
+    </ul>
+</body>
+
+</html>

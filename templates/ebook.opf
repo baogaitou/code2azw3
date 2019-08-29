@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="BookId">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+	<dc:title>{{ .BookName }}</dc:title>
+	<dc:language>zh-cn</dc:language>
+  <meta name="cover" content="Cover" />
+	<dc:identifier id="BookId" opf:scheme="ISBN"></dc:identifier>
+	<dc:creator>{{ .BookIssuer }}</dc:creator>
+	<dc:publisher>{{ .BookIssuer }}</dc:publisher>
+	<dc:subject>Reference</dc:subject>
+	<dc:date>2019-08-30</dc:date>
+  <dc:description>{{ .BookName }}</dc:description>
+</metadata>
+
+<manifest>
+	<item id="chapter_toc" media-type="application/xhtml+xml" href="toc.html"></item>
+	<item id="chapter_welcome" media-type="application/xhtml+xml" href="welcome.html"></item>
+{{ range $k, $v := .Chapters }}
+	<item id="chapter_{{ $k }}" media-type="application/xhtml+xml" href="{{ $v.ChapterPath }}"></item>
+{{ end }}
+    <item id="My_Table_of_Contents" media-type="application/x-dtbncx+xml" href="{{ .BookName }}.ncx"/>
+    <!-- cover image [mandatory] -->
+    <item id="Cover" media-type="image/jpeg" href="../templates/ebook.cover.jpg"/>
+</manifest>
+
+<spine toc="My_Table_of_Contents">
+	<itemref idref="chapter_welcome"/>
+	<itemref idref="chapter_toc"/>
+{{ range $k, $v := .Chapters }}
+	<itemref idref="chapter_{{ $k }}"></item>
+{{ end }}
+</spine>
+
+<guide>
+	<reference type="toc" title="Table of Contents" href="toc.html"></reference>
+	<reference type="text" title="Welcome" href="welcome.html"></reference>
+</guide>
+
+</package>

@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="../css/pub.css" type="text/css" />
+</head>
+
+<body>
+<h2>File: {{ .Filename }}</h2>
+<hr noshade size="1">
+
+{{if .Sections}}
+<h3>functions:</h3>
+<ul>
+{{ range $key, $value := .Sections }}
+    <li><span>{{ $value }}</span></li>
+{{ end }}
+</ul>
+<hr noshade size="1">
+{{end}}
+
+{{if .Structs}}
+<h3>structs:</h3>
+<ul>
+{{ range $key, $value := .Structs }}
+    <li><span>{{ $value }}</span></li>
+{{ end }}
+</ul>
+<hr noshade size="1">
+{{end}}
+
+<div>{{ .Body }}</div></body></html>
